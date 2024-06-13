@@ -21,6 +21,9 @@
     "typescript-eslint": "^7.12.0"
   },
   "dependencies": {
+    "@bull-board/api": "^5.20.1",
+    "@bull-board/express": "^5.20.1",
+    "@bull-board/ui": "^5.20.1",
     "@types/ioredis": "^5.0.0",
     "bullmq": "^5.7.15",
     "concurrently": "^8.2.2",
