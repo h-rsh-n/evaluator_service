@@ -42,6 +42,7 @@ async function runPython(code:string,inputTestCase:string){
     })
   })
 
+  //remove the container when done with it
   await pythonDockerContainer.remove();
 
    
