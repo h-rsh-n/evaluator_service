@@ -2,10 +2,11 @@ import express from "express"
 
 import serverConfig from "./config/serverConfig";
 import apiRouter from "./routes";
-import sampleQueueProcuder from "./producers/sampleQueueProcuder";
-import sampleWorker from "./workers/sampleQueueWorker";
+//import sampleQueueProcuder from "./producers/sampleQueueProcuder";
+//import sampleWorker from "./workers/sampleQueueWorker";
 import serverAdapter from "./config/bullBoardConfig";
 import bodyParser from "body-parser";
+import runPython from "./containers/runPythonDocker";
 
 const app = express();
 
@@ -24,15 +25,17 @@ app.listen(serverConfig.PORT,()=>{
 
   // sampleQueueProcuder('SampleJob',{
   //   name:"Harshan",
-  //   company:"MicroSoft",
+  //   company:"MS",
   //   location:"Bengaluru"
   // });
 
-  // sampleQueueProcuder('SampleJob',{
-  //   name:"Pragya Das",
-  //   company:"GoldmanSachs",
-  //   location:"Hyderabad"
-  // })
+
+  const code = `x = input()
+print("value of x is",x)`
+
+
+  runPython(code,"100");
 })
+
 
 
