@@ -3,6 +3,7 @@ import { HEADER_SIZE } from "../utils/constants";
 
 
 export default function decodeBufferStream(buffer:Buffer):DockerStreamOutput{
+  //console.log('inside helper')
   let offset:number = 0; //keeps track of the current pos in the buffer while parsing
 
   //the output that will store the accumulated stdout and stderr as strings

@@ -7,7 +7,7 @@ import decodeBufferStream from './dockerHelper';
 
 async function runPython(code:string,inputTestCase:string){
   const rawBuffer :Buffer[]= [];
-  console.log('initialising the container');
+  console.log('initialising the python container');
   const runCommand = `echo '${code.replace(/'/g, `'\\"`)}' > test.py && echo '${inputTestCase.replace(/'/g, `'\\"`)}' | python3 test.py`;
   const pythonDockerContainer = await createContainer(PYTHON_IMAGE,[
     '/bin/sh',
@@ -34,9 +34,11 @@ async function runPython(code:string,inputTestCase:string){
 
   await new Promise((res)=>{
     loggerStream.on('end',()=>{
-      console.log(rawBuffer);
+      //console.log(rawBuffer);
       const completeBuffer = Buffer.concat(rawBuffer);
       const decodedStream = decodeBufferStream(completeBuffer);
+      //console.log('formated output')
+      console.log(decodedStream.stderr);
       console.log(decodedStream.stdout);
       res(decodedStream)
     })
