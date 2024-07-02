@@ -8,7 +8,10 @@ import serverAdapter from "./config/bullBoardConfig";
 import bodyParser from "body-parser";
 //import runPython from "./containers/runPythonDocker";
 //import runJava from "./containers/runJavaDocker";
-import runCpp from "./containers/runCppDocker";
+//import runCpp from "./containers/runCppDocker";
+import submissionWorker from "./workers/submissionQueueWorker";
+import { submission_queue } from "./utils/constants";
+import submissionQueueProducer from "./producers/submissionQueueProducer";
 
 const app = express();
 
@@ -30,24 +33,24 @@ app.listen(serverConfig.PORT,()=>{
   //   company:"MS",
   //   location:"Bengaluru"
   // });
-
-  const inputCode= `10`;
-  const code = `
-  import java.util.*;
-  public class Main{
-    public static void main(String[] args){
-      Scanner scn = new Scanner(System.in);
-      int input = scn.nextInt();
-      System.out.println("input value given by user: "+input);
-      for(int i=0;i<input;i++){
-        System.out.println(i);
-      }
-    }
-  }
-  `; 
-  const inputCode1 = `20`;
-  const code1 = `inputCode1 = input() 
-print(inputCode1)`;
+  
+//   const inputCode= `10`;
+//   const code = `
+//   import java.util.*;
+//   public class Main{
+//     public static void main(String[] args){
+//       Scanner scn = new Scanner(System.in);
+//       int input = scn.nextInt();
+//       System.out.println("input value given by user: "+input);
+//       for(int i=0;i<input;i++){
+//         System.out.println(i);
+//       }
+//     }
+//   }
+//   `; 
+//   const inputCode1 = `20`;
+//   const code1 = `inputCode1 = input() 
+// print(inputCode1)`;
 
 const userCode = `
     class Solution {
@@ -84,7 +87,15 @@ const userCode = `
   
   //runJava(code,inputCode);
   //runPython(code1,inputCode1);
-  runCpp(code2,inputCode2)
+  //runCpp(code2,inputCode2)
+  submissionWorker(submission_queue);
+  submissionQueueProducer('SubmissionJob',{"1234":{
+    language:"CPP",
+    userCode:code2,
+    inputCase:inputCode2
+  }
+  })
+
 })
 
 

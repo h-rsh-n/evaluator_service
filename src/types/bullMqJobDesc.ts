@@ -1,4 +1,5 @@
 import { Job } from "bullmq";
+//import { SubmissionPayload } from "./submissionPayload";
 
 export interface IJob{
   name:string
