@@ -7,3 +7,4 @@ export interface IJob{
   handle:(job?:Job)=> void
   failed:(job?:Job)=> void
 }
+
